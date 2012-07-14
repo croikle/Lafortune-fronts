@@ -28,3 +28,7 @@ Then you can do things like:
 There are a few numbers one could change in integrated_solve.m and integrated_find_c.m.
 Let me know what else you'd like to do, or if there are problems.  This is far from a
 masterwork yet.
+
+Acknowledgements
+--
+This is part of joint work with Dr. Anna Ghazaryan, Miami University, and Dr. Stephane Lafortune, College of Charleston
