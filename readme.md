@@ -2,17 +2,19 @@ This is a small Matlab script to calculate fronts for the following system:
 > U' + cU - cz = 0  
 > eps*V' + cV - cz = 0  
 > z' = -(1/c)(1-V)*F(hU + (1-h)V)  
-where F is a mess. (2.3 in the Gordon paper, with h for (1-gamma^(-1)))
+
+where F is a mess. (2.3 in the Gordon paper, with h for (1-γ⁻¹))
 
 This system was produced by integration of
 > U" + cU' + (1-V)F(W) = 0  
 > eps*V" + cV' + (1-V)F(W) = 0  
+
 where W = hU + (1-h)V
 
 It shoots from near (1,1) and adjusts c to land at (0,0).
 
 Usage:
-------
+=
     [x,u,v] = integrated_find_c(eps,h,Z,sigma,w_star);
 Or with some fairly arbitrary numbers:
 
