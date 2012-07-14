@@ -5,6 +5,9 @@ z' = -(1/c)(1-V)*F(hU + (1-h)V)
 where F is a mess. (2.3 in the Gordon paper, with h for (1-gamma^(-1)))
 
 This system was produced by integration of
+U" + cU' + (1-V)F(W) = 0
+eps*V" + cV' + (1-V)F(W) = 0
+where W = hU + (1-h)V
 
 It shoots from near (1,1) and adjusts c to land at (0,0).
 
