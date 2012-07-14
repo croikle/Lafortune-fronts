@@ -1,4 +1,4 @@
-function c = integrated_find_c(eps,h,Z,sigma,w_star)
+function [x, u, v] = integrated_find_c(eps,h,Z,sigma,w_star)
   c_low = 1;
   c_high = 10;
   init_pt = 1e-4;
@@ -16,5 +16,5 @@ function c = integrated_find_c(eps,h,Z,sigma,w_star)
     end
     disp(sprintf('%f ... %f', c_low, c_high));
   end
-  c = c_low;
+  c = test_c
 end
