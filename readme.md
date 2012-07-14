@@ -9,7 +9,7 @@ This system was produced by integration of
 > U" + cU' + (1-V)F(W) = 0  
 > eps*V" + cV' + (1-V)F(W) = 0  
 
-where W = hU + (1-h)V
+where W = hU + (1-h)V.
 
 It shoots from near (1,1) and adjusts c to land at (0,0).
 
@@ -31,4 +31,5 @@ masterwork yet.
 
 Acknowledgements
 --
-This is part of joint work with Dr. Anna Ghazaryan, Miami University, and Dr. Stephane Lafortune, College of Charleston
+This is part of joint work with Dr. Anna Ghazaryan, Miami University, and Dr.
+Stephane Lafortune, College of Charleston.
