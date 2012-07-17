@@ -15,7 +15,7 @@ function [c, sol] = integrated_find_c(eps,h,Z,sigma,w_star)
     else
       c_high = test_c;
     end
-    disp(sprintf('%f ... %f', c_low, c_high));
+    %disp(sprintf('%f ... %f', c_low, c_high));
   end
-  c = test_c
+  c = test_c;
 end
