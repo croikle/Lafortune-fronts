@@ -26,6 +26,7 @@ function sol = integrated_solve(c,eps,h,Z,sigma,w_star,initial)
 end
 
 function du = get_last_du(sol)
-  [y,dy] = deval(sol,sol.x);
-  du = dy(1,end);
+  dx = sol.x(end) - sol.x(end-1);
+  dy = sol.y(1,end) - sol.y(1,end-1);
+  du = dy/dx;
 end
