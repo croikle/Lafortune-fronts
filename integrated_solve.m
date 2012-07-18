@@ -1,7 +1,7 @@
 % depends on integrated_ode_eps0.m, integrated_ode.m
 function sol = integrated_solve(c,eps,h,Z,sigma,w_star,initial)
   options = odeset('RelTol',1e-9,'AbsTol',1e-9);
-  final = 10;
+  final = 7;
   x_values = [0,final];
 
   if eps == 0
