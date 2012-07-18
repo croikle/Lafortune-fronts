@@ -1,7 +1,7 @@
 function [c, sol] = integrated_find_c(eps,h,Z,sigma,w_star)
-  c_low = 1;
+  c_low = 0;
   c_high = 10;
-  init_pt = 1e-9;
+  init_pt = 1e-3;
   final_time = 10;
 
   precision = 1e-5;
