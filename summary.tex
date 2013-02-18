@@ -1,0 +1,77 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section{System}
+\begin{align}
+u_t &= u_{xx} + (1-v)F(w) \\
+v_t &= \epsilon v_{xx} + (1-v)F(w)\\
+w &= hu+(1-h)v
+\end{align}
+with $h \in [0,1], \epsilon \in (0,1]$.
+
+We take a discontinuous nonlinearity
+\begin{equation}
+F(w) = \left\{\begin{array}{ll}
+\mathrm{exp}\left(Z\left\{\frac{w-h}{\sigma+(1-\sigma)w} \right\} \right) & w \geq w^*\\
+0 & w < w^*
+\end{array} \right.
+\end{equation}
+
+
+\section{Waves}
+\begin{align}
+&U_{xx} + cU_x + (1-V)F(W) = 0\\
+&\epsilon V_{xx} + cV_x + (1-V)F(W) = 0\\
+&W = hU+(1-h)V
+\end{align}
+
+At $-\infty$, $(U,V) \to (1,1)$, and at $\infty$, $(U,V) \to (0,0)$.
+
+In the region $w < w^*$ where the nonlinearity is zero, these equations do not involve $U$ and $V$ at all---they are differential equations for $U_x$ and $V_x$.
+As a result, integration may not hit $(0,0)$. To fix this, we integrate the system.
+
+Let
+\begin{equation}
+z = \frac{1}{c}\int_\xi^\infty (1-V)F(W)
+\end{equation}
+Clearly $z=0$ at $\infty$.  After integration we will get $z=1$ at $-\infty$.
+
+This gives
+\begin{equation}
+z_\xi = -\frac{1}{c}(1-V)F(W)
+\end{equation}
+so
+\begin{align}
+&z'= -\frac{1}{c}(1-V)F(W)\\
+&U_{\xi\xi}+cU_\xi-cz_\xi = 0\\
+&\epsilon V_{\xi\xi}+cV_\xi-cz_\xi = 0
+\end{align}
+The latter two may now be integrated.
+
+\begin{align}
+&U_\xi + cU - cz = q \\
+&\epsilon V_\xi + cV - cz = q
+\end{align}
+At $\infty$, each of $U_\xi$, $U$, and $z$ go to 0, so $q=0$.
+At $-\infty$, we get $z=1$.
+\begin{align}
+&U_\xi + cU - cz = 0 \\
+&\epsilon V_\xi + cV - cz = 0
+\end{align}
+
+Thus, our end behavior is $(U,V,z) \to (1,1,1)$ at $-\infty$, and $(U,V,z) \to (0,0,0)$ at $\infty$.
+
+\subsection{$\epsilon = 0$}
+In this case, we get $V = z$, and the system is two-dimensional.
+
+
+\section{Finding $c$}
+We find $c$ by integrating the ODE, from a point $\epsilon$-close to $(1,1,1)$.
+At different values of $c$, we end up at different points, and there's only one correct value where we hit $(0,0,0)$.
+We can tell whether our value is too high or low by where the terminus is: if $c$ is too low, we finish with $U,V < 0$, and vice versa.  This lets us perform a simple binary search to approach the correct value of $c$.
+
+
+
+
+\end{document}
