@@ -8,7 +8,7 @@ function result = evans(eps,h,Z,sigma,w_star)
   % maybe some precision options here
 
   t1_values = [0, -10];
-  t2_values = [0, -1];
+  t2_values = [0, 1];
   initial_scale = 1e-5;
 
   function [sol1,sol2] = compute(lambda)
