@@ -18,7 +18,7 @@ function result = evans(eps,h,Z,sigma,w_star)
     sol1 = ode45(ode1, t1_values, initial1, options);
 
     ode2 = adjoint_ode(c,lambda,h,Z,sigma,w_star);
-    initial2 = [1,0,1] - initial_scale*[1, -1/2*(c + sqrt(c^2 + 4*lambda))/lambda, (c^2 + sqrt(c^2 + 4*lambda)*c)*exp(Z)/((c^2*lambda + sqrt(c^2 + 4*lambda)*c*lambda + 2*lambda^2)*exp(Z*h) + 2*lambda*exp(Z))]
+    initial2 = initial_scale*[1, -1/2*(c + sqrt(c^2 + 4*lambda))/lambda, (c^2 + sqrt(c^2 + 4*lambda)*c)*exp(Z)/((c^2*lambda + sqrt(c^2 + 4*lambda)*c*lambda + 2*lambda^2)*exp(Z*h) + 2*lambda*exp(Z))]
     % this is the stable eigenvector of the -transposed limiting matrix at 1,1
     sol2 = ode45(ode2, t2_values, initial2, options);
 
