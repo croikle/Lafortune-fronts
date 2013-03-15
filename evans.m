@@ -7,8 +7,9 @@ function result = evans(eps,h,Z,sigma,w_star)
   options = odeset('AbsTol',1e-7,'RelTol',1e-7);
   % maybe some precision options here
 
-  t1_values = [0, -10];
-  t2_values = [0, 1];
+  endval = 5;
+  t1_values = [0, -endval];
+  t2_values = [0, endval];
   initial_scale = 1e-5;
 
   function [sol1,sol2] = compute(lambda)
