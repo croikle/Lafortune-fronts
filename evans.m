@@ -6,7 +6,7 @@ function result = evans(eps,h,Z,sigma,w_star)
 % returns a function of lambda
   c = integrated_find_c(eps,h,Z,sigma,w_star);
 
-  options = odeset('AbsTol',1e-7,'RelTol',1e-7);
+  options = odeset('AbsTol',1e-9,'RelTol',1e-9);
   % maybe some precision options here
 
   endval = 5;
