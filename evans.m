@@ -26,9 +26,12 @@ function result = evans(eps,h,Z,sigma,w_star)
     sol2 = ode45(ode2, t2_values, initial2, options);
 
     % for debugging. make sure these solutions don't go weird
-    plot(sol1.x,sol1.y);
-    figure();
-    plot(sol2.x,sol2.y);
+    debug = false;
+    if(debug)
+      plot(sol1.x,sol1.y);
+      figure();
+      plot(sol2.x,sol2.y);
+    end
     value = dot(sol1.y(:,end),sol2.y(:,end));
   end
 
