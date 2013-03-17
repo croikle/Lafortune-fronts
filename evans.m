@@ -9,7 +9,7 @@ function result = evans(eps,h,Z,sigma,w_star)
   options = odeset('AbsTol',1e-9,'RelTol',1e-9);
   % maybe some precision options here
 
-  endval = 5;
+  endval = 1;
   t1_values = [0, -endval];
   t2_values = [0, endval];
   initial_scale = 1e-5;
