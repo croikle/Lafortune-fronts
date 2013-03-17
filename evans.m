@@ -12,7 +12,7 @@ function result = evans(eps,h,Z,sigma,w_star)
   t2_values = [0, endval];
   initial_scale = 1e-5;
 
-  function value = compute(lambda)
+  function [value,sol1,sol2] = compute(lambda)
     ode1 = A_ode(c,lambda,h,Z,sigma,w_star);
     initial1 = initial_scale*[1, -(c + sqrt(c^2 + 4*lambda))/2, 0];
     % this is the stable eigenvector of the limiting matrix at 0,0
