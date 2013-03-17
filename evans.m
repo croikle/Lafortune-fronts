@@ -1,4 +1,6 @@
-% depends on adjoint_ode.m, A_zero_ode.m
+% depends on adjoint_ode.m, A_ode.m
+% recursive depends: A.m, fu.m, fv.m
+% also the whole integrated_* tree
 % specialized to epsilon = 0 for the moment
 function result = evans(eps,h,Z,sigma,w_star)
 % returns a function of lambda
