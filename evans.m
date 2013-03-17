@@ -29,8 +29,9 @@ function result = evans(eps,h,Z,sigma,w_star)
     % pass an extra argument to show plots.
     debug = (nargin > 1);
     if(debug)
+      figure(1);
       plot(sol1.x,sol1.y);
-      figure();
+      figure(2);
       plot(sol2.x,sol2.y);
     end
     value = dot(sol1.y(:,end),sol2.y(:,end));
