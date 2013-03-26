@@ -72,6 +72,84 @@ At different values of $c$, we end up at different points, and there's only one 
 We can tell whether our value is too high or low by where the terminus is: if $c$ is too low, we finish with $U,V < 0$, and vice versa.  This lets us perform a simple binary search to approach the correct value of $c$.
 
 
+\section{Linearization}
+First, moving frame version:
+\begin{align}
+u_t &= u_{xx} + c u_x + (1-v)F(w) \\
+v_t &= \epsilon v_{xx} + c v_x+ (1-v)F(w)\\
+\end{align}
+This linearizes to
+\begin{align}
+u_t &= u_{xx} + c u_x + K_u u \\
+v_t &= \epsilon v_{xx} + c v_x+ K_v v
+\end{align}
+where $K = (1-v)F(w)$.
+$K_u$ and $K_v$ are evaluated at the front.
 
+For $w \geq w^*$, $K_u$ and $K_v$ are each messy functions of $u$ and $v$; we find them with computer algebra.
+For $w < w^*$, since $F = 0$ uniformly we have $K_u = K_v = 0$.
+
+This gives us the operator
+\[
+L = \begin{bmatrix}
+\delta_{xx} + c \delta_x + K_u  &  K_v  \\
+K_u  &  \epsilon \delta_{xx} + c \delta_x + K_v
+\end{bmatrix}
+\]
+We wish to solve $LX = \lambda X$, i.e.
+\begin{align}
+\lambda u_t &= u_{xx} + c u_x + K_u u \\
+\lambda v_t &= \epsilon v_{xx} + c v_x+ K_v v
+\end{align}
+
+We rewrite this as a first-order system $X' = AX$ by introducing $u_x = s$.  Fixing $\epsilon=0$ for now, we get
+\begin{align}
+u_x &= s \\
+s_x &= \lambda u - c s - K_u u - K_v v \\
+v_x &= (\lambda v - K_u u - K_v v)/c
+\end{align}
+Writing as a matrix,
+\[
+X = \begin{bmatrix}u\\s\\v\end{bmatrix},
+A = \begin{bmatrix}
+0 & 1 & 0 \\
+\lambda - K_u  &  -c  &  -K_v \\
+- K_u/c  &  0  &  (\lambda - K_v)/c
+\end{bmatrix}
+\]
+
+\section{Eigenvalues}
+\subsection{$+\infty$}
+At $X = 0$, we have $K_u = K_v = 0$, so this simplifies to
+\[
+A = \begin{bmatrix}
+0 & 1 & 0 \\
+\lambda &  -c  &  0 \\
+0 &  0  &  \lambda/c
+\end{bmatrix}
+\]
+This has eigenvalues $(-c \pm \sqrt{c^2 + 4 \lambda})/2$ and $\lambda/c$.  For $\Re \lambda > 0$, the one with negative real part is
+\[\lambda_1 = \frac{-c - \sqrt{c^2 + 4 \lambda}}{2}\]
+One eigenvector for it is
+\[v_1 = [1,(-c - \sqrt{c^2 + 4 \lambda})/2,0] \]
+
+\subsection{$-\infty$}
+At $X = [1,0,1]$ we get
+\[
+A = \begin{bmatrix}
+0 & 1 & 0 \\
+\lambda &  -c  &  e^{(1-h)Z} \\
+0 &  0  &  (\lambda + e^{(1-h)Z})/c
+\end{bmatrix}
+\]
+with eigenvalues $(-c \pm \sqrt{c^2 + 4 \lambda})/2$ and $(\lambda + e^{(1-h)Z})/c$.
+
+We're actually interested in the adjoint $-A^T$, whose eigenvalues are the negation of those.
+Thus, the unique positive eigenvalue is
+\[\lambda_2 = \frac{c + \sqrt{c^2 + 4 \lambda}}{2} \]
+One eigenvector (of $-A^T$) for that is
+\[
+v_2 = \left[1, -\frac{c + \sqrt{c^2 + 4 \lambda}}{2\lambda}, \frac{(c + \sqrt{c^2+4\lambda})}{\lambda e^{Z(h-1)}(c + \sqrt{c^2+4\lambda} + 2 \lambda/c)+ 2 \lambda / c}\right]
+\]
 
 \end{document}
