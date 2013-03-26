@@ -146,10 +146,20 @@ with eigenvalues $(-c \pm \sqrt{c^2 + 4 \lambda})/2$ and $(\lambda + e^{(1-h)Z})
 
 We're actually interested in the adjoint $-A^T$, whose eigenvalues are the negation of those.
 Thus, the unique positive eigenvalue is
-\[\lambda_2 = \frac{c + \sqrt{c^2 + 4 \lambda}}{2} \]
+\[\lambda_2 = \frac{c + \sqrt{c^2 + 4 \lambda}}{2} = -\lambda_1 \]
 One eigenvector (of $-A^T$) for that is
 \[
 v_2 = \left[1, -\frac{c + \sqrt{c^2 + 4 \lambda}}{2\lambda}, \frac{(c + \sqrt{c^2+4\lambda})}{\lambda e^{Z(h-1)}(c + \sqrt{c^2+4\lambda} + 2 \lambda/c)+ 2 \lambda / c}\right]
 \]
+
+
+\section{Evans function}
+We pick an appropriate time $d$, and perform two integrations.
+
+We integrate $X' = AX$ from $d$ to $0$, with initial condition $e^{\lambda_1 d}v_1$.
+
+We integrate $X' = -A^T X$ from $-d$ to $0$, with initial condition $e^{\lambda_1 d}v_2 = e^{-\lambda_2 d}v_2$.
+
+The Evans function is the dot product of these results at $0$.
 
 \end{document}
