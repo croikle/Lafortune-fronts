@@ -10,8 +10,8 @@ function result = evans(eps,h,Z,sigma,w_star)
   % maybe some precision options here
 
   endval = 5;
-  t1_values = [0, -endval];
-  t2_values = [0, endval];
+  t1_values = [endval, 0];
+  t2_values = [-endval, 0];
 
   function [value,sol1,sol2] = compute(lambda,varargin)
     eigenvalue = -c/2 - sqrt(c^2 + 4*lambda)/2;
