@@ -21,14 +21,14 @@ F(w) = \left\{\begin{array}{ll}
 
 \section{Waves}
 \begin{align}
-&U_{xx} + cU_x + (1-V)F(W) = 0\\
-&\epsilon V_{xx} + cV_x + (1-V)F(W) = 0\\
+&U_{\xi\xi} + cU_\xi + (1-V)F(W) = 0\\
+&\epsilon V_{\xi\xi} + cV_\xi + (1-V)F(W) = 0\\
 &W = hU+(1-h)V
 \end{align}
 
 At $-\infty$, $(U,V) \to (1,1)$, and at $\infty$, $(U,V) \to (0,0)$.
 
-In the region $w < w^*$ where the nonlinearity is zero, these equations do not involve $U$ and $V$ at all---they are differential equations for $U_x$ and $V_x$.
+In the region $W < w^*$ where $F(W) = 0$, these equations do not involve $U$ and $V$ at all---they are differential equations for $U_\xi$ and $V_\xi$.
 As a result, integration may not hit $(0,0)$. To fix this, we integrate the system.
 
 Let
@@ -43,18 +43,18 @@ z_\xi = -\frac{1}{c}(1-V)F(W)
 \end{equation}
 so
 \begin{align}
-&z'= -\frac{1}{c}(1-V)F(W)\\
-&U_{\xi\xi}+cU_\xi-cz_\xi = 0\\
+U_{\xi\xi}+cU_\xi-cz_\xi = 0\\
 &\epsilon V_{\xi\xi}+cV_\xi-cz_\xi = 0
 \end{align}
-The latter two may now be integrated.
-
+These may now be integrated.
 \begin{align}
 &U_\xi + cU - cz = q \\
-&\epsilon V_\xi + cV - cz = q
+&\epsilon V_\xi + cV - cz = r
 \end{align}
+where $q$ and $r$ are constants.
 At $\infty$, each of $U_\xi$, $U$, and $z$ go to 0, so $q=0$.
-At $-\infty$, we get $z=1$.
+Likewise $r=0$.
+At $-\infty$, $U_\xi = 0$ and $U = 1$, so we get $z=1$.
 \begin{align}
 &U_\xi + cU - cz = 0 \\
 &\epsilon V_\xi + cV - cz = 0
@@ -64,6 +64,10 @@ Thus, our end behavior is $(U,V,z) \to (1,1,1)$ at $-\infty$, and $(U,V,z) \to (
 
 \subsection{$\epsilon = 0$}
 In this case, we get $V = z$, and the system is two-dimensional.
+\begin{align}
+U_\xi &= c(V-U) \label{front_eps0} \\
+V_\xi &= - \frac{1}{c}(1-V)F(W)
+\end{align}
 
 
 \section{Finding $c$}
@@ -75,13 +79,13 @@ We can tell whether our value is too high or low by where the terminus is: if $c
 \section{Linearization}
 First, moving frame version:
 \begin{align}
-u_t &= u_{xx} + c u_x + (1-v)F(w) \\
-v_t &= \epsilon v_{xx} + c v_x+ (1-v)F(w)\\
+u_t &= u_{\xi\xi} + c u_\xi + (1-v)F(w) \\
+v_t &= \epsilon v_{\xi\xi} + c v_\xi+ (1-v)F(w)
 \end{align}
-This linearizes to
+We linearize about the front with perturbation $(p,q)$.  This gives:
 \begin{align}
-u_t &= u_{xx} + c u_x + K_u u \\
-v_t &= \epsilon v_{xx} + c v_x+ K_v v
+p_t &= p_{\xi\xi} + c p_\xi + K_u p + K_v q \\
+q_t &= \epsilon q_{\xi\xi} + c q_\xi+ K_u p + K_u q
 \end{align}
 where $K = (1-v)F(w)$.
 $K_u$ and $K_v$ are evaluated at the front.
@@ -92,25 +96,27 @@ For $w < w^*$, since $F = 0$ uniformly we have $K_u = K_v = 0$.
 This gives us the operator
 \[
 L = \begin{bmatrix}
-\delta_{xx} + c \delta_x + K_u  &  K_v  \\
-K_u  &  \epsilon \delta_{xx} + c \delta_x + K_v
+\partial_{\xi\xi} + c \partial_\xi + K_u  &  K_v  \\
+K_u  &  \epsilon \partial_{\xi\xi} + c \partial_\xi + K_v
 \end{bmatrix}
 \]
 We wish to solve $LX = \lambda X$, i.e.
 \begin{align}
-\lambda u_t &= u_{xx} + c u_x + K_u u \\
-\lambda v_t &= \epsilon v_{xx} + c v_x+ K_v v
+\lambda p &= p_{\xi\xi} + c p_\xi + K_u p + K_v q \\
+\lambda q &= \epsilon q_{\xi\xi} + c q_\xi+ K_u p + K_v q
 \end{align}
 
-We rewrite this as a first-order system $X' = AX$ by introducing $u_x = s$.  Fixing $\epsilon=0$ for now, we get
+\subsection{$\epsilon = 0$}
+We will study the $\epsilon=0$ case for now, to simplify things.
+We can rewrite this as a first-order system $X' = AX$ by introducing $p_x = s$.
 \begin{align}
-u_x &= s \\
-s_x &= \lambda u - c s - K_u u - K_v v \\
-v_x &= (\lambda v - K_u u - K_v v)/c
+p_\xi &= s \\
+s_\xi &= \lambda p - c s - K_u p - K_v q \\
+q_\xi &= (\lambda q - K_u p - K_v q)/c
 \end{align}
-Writing as a matrix, with $X$ dependency from $K_u$ and $K_v$,
+Writing as a matrix, where $K_u$ and $K_v$ depend on the front,
 \[
-X = \begin{bmatrix}u\\s\\v\end{bmatrix},
+X = \begin{bmatrix}p\\s\\q\end{bmatrix},
 A = \begin{bmatrix}
 0 & 1 & 0 \\
 \lambda - K_u  &  -c  &  -K_v \\
@@ -120,7 +126,7 @@ A = \begin{bmatrix}
 
 \section{Eigenvalues}
 \subsection{$+\infty$}
-At $X = 0$, we have $K_u = K_v = 0$, so this simplifies to
+At $(u,v) = 0$, we have $K_u = K_v = 0$, so this simplifies to
 \[
 A = \begin{bmatrix}
 0 & 1 & 0 \\
@@ -134,7 +140,7 @@ One eigenvector for it is
 \[v_1 = [1,(-c - \sqrt{c^2 + 4 \lambda})/2,0] \]
 
 \subsection{$-\infty$}
-At $X = [1,0,1]$ we get
+At $(u,v) = (1,1)$ we get
 \[
 A = \begin{bmatrix}
 0 & 1 & 0 \\
@@ -154,13 +160,16 @@ v_2 = \left[1, -\frac{c + \sqrt{c^2 + 4 \lambda}}{2\lambda}, \frac{(c + \sqrt{c^
 
 
 \section{Evans function}
-We pick an appropriate time $d$, and perform two integrations.
+We pick an appropriate distance $d$, and perform two integrations.
 
-We integrate $X' = AX$ from $d$ to $0$, with initial condition $e^{\lambda_1 d}v_1$.
+These depend on a fixed front, a solution of the ODE \eqref{front_eps0}.
+We put the middle of the front at $\xi = 0$.  As $\xi$ changes during the integration, the front gives us different values of $u,v$ in $A$.
+
+We integrate $X' = AX$ for $\xi = d$ to $0$, with initial condition $e^{\lambda_1 d}v_1$.
 
 We integrate $X' = -A^T X$ from $-d$ to $0$, with initial condition $e^{\lambda_1 d}v_2' = e^{-\lambda_2 d}v_2'$. The vector $v_2'$ is another eigenvector collinear with $v_2$, but normalized so that $v_1 \cdot v_2' = 1$.
 \[v_2' = \frac{v_2}{v_2 \cdot v_1}\]
 
-The Evans function is the dot product of these results at $0$.
+The Evans function is the dot product of these results at $\xi = 0$.
 
 \end{document}
