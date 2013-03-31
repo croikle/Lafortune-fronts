@@ -13,12 +13,12 @@ function result = evans(eps,h,Z,sigma,w_star)
   t1_values = [endval, 0];
   t2_values = [-endval, 0];
 
-  function [value,sol1,sol2] = compute(lambda,varargin)
+  function [value,sol1,sol2] = compute(lambda,rescale,varargin)
     eigenvalue = -c/2 - sqrt(c^2 + 4*lambda)/2;
     scale = exp(endval*eigenvalue);
 
     ode1 = A_ode(c,lambda,h,Z,sigma,w_star);
-    vector1 = [1, -(c + sqrt(c^2 + 4*lambda))/2, 0];
+    vector1 = rescale * [1, -(c + sqrt(c^2 + 4*lambda))/2, 0];
     % this is the stable eigenvector of the limiting matrix at 0,0
     initial1 = scale * vector1;
     sol1 = ode45(ode1, t1_values, initial1, options);
@@ -32,7 +32,7 @@ function result = evans(eps,h,Z,sigma,w_star)
 
     % for debugging. make sure these solutions don't go weird
     % pass an extra argument to show plots.
-    debug = (nargin > 1);
+    debug = (nargin > 2);
     if(debug)
       figure(1);
       plot(sol1.x,sol1.y);
