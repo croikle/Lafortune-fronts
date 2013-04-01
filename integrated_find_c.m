@@ -8,7 +8,7 @@ function [c, sol] = integrated_find_c(eps,h,Z,sigma,w_star)
   while c_high - c_low > precision
     test_c = (c_low + c_high)/2;
     if eps == 0
-      initial = [1,1] - init_pt * [1, 1 + exp((1-h)*Z)/test_c^2;
+      initial = [1,1] - init_pt * [1, 1 + exp((1-h)*Z)/test_c^2];
     else
       initial = [1,1,1] - supermess;
     end
