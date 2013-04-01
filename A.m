@@ -1,4 +1,4 @@
-% x = [u s v]'
+% x = [u v]
 % depends on fu.m, fv.m
 function result = A(c,lambda,h,Z,sigma,w_star)
   Fu = fu(h,Z,sigma,w_star);
