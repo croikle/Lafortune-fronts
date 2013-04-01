@@ -8,8 +8,7 @@ function sol = integrated_solve(c,eps,h,Z,sigma,w_star,initial)
     ode = integrated_ode_eps0(c,h,Z,sigma,w_star);
   else
     ode = integrated_ode(c,eps,h,Z,sigma,w_star);
-    initial = [initial initial(2)];
-    % need initial value for z too -- take V init as hack
+    % caller should pass in appropriate-dimension initial condition
   end
   sol = ode45(ode, x_values, initial, options);
   while abs(get_last_du(sol)) > 1e-7
