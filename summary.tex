@@ -43,7 +43,7 @@ z_\xi = -\frac{1}{c}(1-V)F(W)
 \end{equation}
 so
 \begin{align}
-U_{\xi\xi}+cU_\xi-cz_\xi = 0\\
+&U_{\xi\xi}+cU_\xi-cz_\xi = 0\\
 &\epsilon V_{\xi\xi}+cV_\xi-cz_\xi = 0
 \end{align}
 These may now be integrated.
@@ -69,11 +69,73 @@ U_\xi &= c(V-U) \label{front_eps0} \\
 V_\xi &= - \frac{1}{c}(1-V)F(W)
 \end{align}
 
+For shooting, we want to find the positive eigendirection at $(1,1)$.
+The system linearizes to
+\[
+\begin{bmatrix}
+P\\Q
+\end{bmatrix}'
+=
+\begin{bmatrix}
+-c & c \\
+-K_u/c & -K_v/c
+\end{bmatrix}
+\begin{bmatrix}
+P\\Q
+\end{bmatrix}
+\]
+where $K = (1-v)F(w)$.
+
+At $(U,V) = (1,1)$ we have $K_u = 0$ and $K_v = - e^{(1-h)Z}$, so the matrix is
+\[
+\begin{bmatrix}
+-c & c \\
+0 & e^{(1-h)Z}/c
+\end{bmatrix}
+\]
+The positive eigenvalue is $e^{(1-h)Z}/c$, with eigenvector $[1,1+e^{(1-h)Z}/c^2]$.
+
+\subsection{$\epsilon \neq 0$}
+Here the system is
+\begin{align}
+U_\xi &= -cU + cz \\
+V_\xi &= \frac{1}{\epsilon}(-cV + cz) \\
+z_\xi &= -\frac{1}{c}(1-V)F(W)
+\end{align}
+This linearizes to
+\[
+\begin{bmatrix}
+P\\Q\\R
+\end{bmatrix}'
+=
+\begin{bmatrix}
+-c & 0 & c \\
+0 & -c/\epsilon & c/\epsilon \\
+-K_u/c & -K_v/c & 0
+\end{bmatrix}
+\begin{bmatrix}
+P\\Q\\R
+\end{bmatrix}
+\]
+
+At $(1,1)$ the matrix becomes
+\[
+\begin{bmatrix}
+-c & 0 & c \\
+0 & -c/\epsilon & c/\epsilon \\
+0 & e^{(1-h)Z}/c & 0
+\end{bmatrix}
+\]
+This has one positive eigenvalue, which is quite a mess.
+
 
 \section{Finding $c$}
-We find $c$ by integrating the ODE, from a point $\epsilon$-close to $(1,1,1)$.
+We find $c$ by integrating the ODE from a point close to $(1,1,1)$, in the positive eigendirection.
 At different values of $c$, we end up at different points, and there's only one correct value where we hit $(0,0,0)$.
 We can tell whether our value is too high or low by where the terminus is: if $c$ is too low, we finish with $U,V < 0$, and vice versa.  This lets us perform a simple binary search to approach the correct value of $c$.
+
+Starting in an eigendirection lets us approximate the ODE backward in time with simple exponential decay.
+Since the $(1,1,1)$ fixed point is a saddle, backward integration eventually leaves along another eigendirection, so we do this instead.
 
 
 \section{Linearization}
