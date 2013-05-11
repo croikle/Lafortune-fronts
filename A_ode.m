@@ -9,7 +9,7 @@ function result = A_ode(c,front,lambda,h,Z,sigma,w_star)
 
   function dp = ode(t,p)
     % find the front at time t
-    x = deval(front,t);
+    x = front(t);
     % use A at that x value
     dp = our_A(x) * p;
   end

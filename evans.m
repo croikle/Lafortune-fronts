@@ -4,9 +4,9 @@
 % specialized to epsilon = 0 for the moment
 function result = evans(eps,h,Z,sigma,w_star)
 % returns a function of lambda
-  [c, front] = integrated_find_c(eps,h,Z,sigma,w_star);
+  [c, front, sol] = integrated_find_c(eps,h,Z,sigma,w_star);
   % where is the front basically done
-  endval = front.x(find(front.y(2,:) < 1e-3));
+  endval = sol.x(find(sol.y(1,:) < 1e-3, 1));
 
   options = odeset('AbsTol',1e-9,'RelTol',1e-9);
   % maybe some precision options here
@@ -15,10 +15,11 @@ function result = evans(eps,h,Z,sigma,w_star)
   % later: extend before 0, shift to put middle at 0
   t1_values = [endval, endval/2];
   t2_values = [0, endval/2];
+  length = endval/2;
 
   function [value,sol1,sol2] = compute(lambda,rescale,varargin)
     eigenvalue = -c/2 - sqrt(c^2 + 4*lambda)/2;
-    scale = exp(endval*eigenvalue);
+    scale = exp(length*eigenvalue);
 
     ode1 = A_ode(c,front,lambda,h,Z,sigma,w_star);
     vector1 = rescale * [1, -(c + sqrt(c^2 + 4*lambda))/2, 0];
