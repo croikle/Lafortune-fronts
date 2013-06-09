@@ -46,7 +46,7 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
       figure(2);
       plot(sol2.x,sol2.y);
     end
-    value = dot(sol1.y(:,end),sol2.y(:,end));
+    value = sol1.y(:,end).' * sol2.y(:,end);
   end
 
   result = @compute;
