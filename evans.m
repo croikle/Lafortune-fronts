@@ -3,25 +3,29 @@
 % also the whole integrated_* tree
 % specialized to epsilon = 0 for the moment
 function [result, sol] = evans(eps,h,Z,sigma,w_star)
-% returns a function of lambda
+% result: a function of lambda
+% sol   : the ode45 solution of the front (optional)
+
   [c, front, sol] = integrated_find_c(eps,h,Z,sigma,w_star);
-  % where is the front basically done
-  endval = sol.x(find(sol.y(1,:) < 1e-3, 1));
+
+  % Find where the front is done
+  right = sol.x(find(sol.y(1,:) < 1e-3, 1));
+
+  % Pick a point for the middle
+  avg = 0.5 * (sol.y(1,:) + sol.y(2,:));
+  mid = sol.x(find(avg < 0.3, 1));
+
+  % Left is just zero
+  left = 0;
 
   options = odeset('AbsTol',1e-9,'RelTol',1e-9);
-  % maybe some precision options here
+  % any other options?
 
-  % meet in the middle
-  % later: extend before 0, shift to put middle at 0
-  % t1_values = [endval, 0];
-  % t2_values = [0, endval];
-  % length = endval/2;
-
-  function [value,sol1,sol2] = compute(lambda,rescale,left,right,mid,varargin)
+  function [value,sol1,sol2] = compute(lambda,varargin)
     eigenvalue = -c/2 - sqrt(c^2 + 4*lambda)/2;
 
     ode1 = A_ode(c,front,lambda,h,Z,sigma,w_star);
-    vector1 = rescale * [1, -(c + sqrt(c^2 + 4*lambda))/2, 0];
+    vector1 = [1, -(c + sqrt(c^2 + 4*lambda))/2, 0];
     % this is the stable eigenvector of the limiting matrix at 0,0
     scale1 = exp((right-mid)*eigenvalue);
     initial1 = scale1 * vector1;
@@ -39,7 +43,8 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
 
     % for debugging. make sure these solutions don't go weird
     % pass an extra argument to show plots.
-    debug = (nargin > 5);
+    % These solutions are actually complex, though.
+    debug = (nargin > 1);
     if(debug)
       figure(1);
       plot(sol1.x,sol1.y);
