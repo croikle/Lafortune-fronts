@@ -1,11 +1,16 @@
 Evans function example
 -
-> eps = 0; h = 0.3; Z = 6; sigma = 0.25; w_star = 0.003;  
-> e = evans(eps, h, Z, sigma, w_star);  
-> e(1+2i)  
-> plot(arrayfun(e, 0.3 * exp(2*pi*j*[0:0.05:1])))  
-> k = arrayfun(e, cgrid(0:2:10, 0:2:10));  
-> plot(k); hold on; plot(k.')  
+The parameters I've been using:
+    eps = 0; h = 0.3; Z = 6; sigma = 0.25; w_star = 0.003;  
+Set up the function:
+    e = evans(eps, h, Z, sigma, w_star);  
+Now it's a function:
+    e(1+2j)  
+We can plot it evaluated over a circle:
+    plot(arrayfun(e, 0.3 * exp(2*pi*j*[0:0.05:1])))  
+Or a grid:
+    k = arrayfun(e, cgrid(0:2:10, 0:2:10));  
+    plot(k); hold on; plot(k.')  
 
 
 Old stuff
@@ -27,7 +32,7 @@ where W = hU + (1-h)V.
 It shoots from near (1,1) and adjusts c to land at (0,0).
 
 Usage:
-=
+-
     [x,u,v] = integrated_find_c(eps,h,Z,sigma,w_star);
 Or with some fairly arbitrary numbers:
 
