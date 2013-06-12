@@ -1,3 +1,16 @@
+Evans function example
+-
+> eps = 0; h = 0.3; Z = 6; sigma = 0.25; w_star = 0.003;
+> e = evans(eps, h, Z, sigma, w_star);
+> e(1+2i)
+> plot(arrayfun(e, 0.3 * exp(2*pi*j*[0:0.05:1])))
+> k = arrayfun(e, cgrid(0:2:10, 0:2:10));
+> plot(k); hold on; plot(k.')
+
+
+Old stuff
+--
+
 This is a small Matlab script to calculate fronts for the following system:
 > U' + cU - cz = 0  
 > eps*V' + cV - cz = 0  
