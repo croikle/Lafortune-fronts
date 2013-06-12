@@ -1,14 +1,14 @@
 Evans function example
 -
-The parameters I've been using:
+The parameters I've been using:  
     eps = 0; h = 0.3; Z = 6; sigma = 0.25; w_star = 0.003;  
-Set up the function:
+Set up the function:  
     e = evans(eps, h, Z, sigma, w_star);  
-Now it's a function:
+Now it's a function:  
     e(1+2j)  
-We can plot it evaluated over a circle:
+We can plot it evaluated over a circle:  
     plot(arrayfun(e, 0.3 * exp(2*pi*j*[0:0.05:1])))  
-Or a grid:
+Or a grid:  
     k = arrayfun(e, cgrid(0:2:10, 0:2:10));  
     plot(k); hold on; plot(k.')  
 
