@@ -54,6 +54,6 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     value = sol1.y(:,end).' * sol2.y(:,end);
   end
 
-  result = @compute;
+  result = @(x) arrayfun(@compute,x);
 
 end
