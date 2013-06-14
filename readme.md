@@ -11,10 +11,10 @@ Now it's a function:
     e(1+2j)  
 We can plot it evaluated over a circle:
 
-    plot(arrayfun(e, 0.3 * exp(2*pi*j*[0:0.05:1])))  
+    plot(e(0.3 * exp(2*pi*j*[0:0.05:1])))  
 Or a grid:
 
-    k = arrayfun(e, cgrid(0:2:10, 0:2:10));  
+    k = e(cgrid(0:2:10, 0:2:10));  
     plot(k); hold on; plot(k.')  
 
 
