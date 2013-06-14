@@ -186,8 +186,31 @@ A = \begin{bmatrix}
 \end{bmatrix}
 \]
 
+\subsection{$\epsilon \neq 0$}
+In this case, the system becomes four-dimensional, with $p_x = s$ and $q_x = r$.
+(these are in non-alphabetical order\ldots)
+\begin{align}
+p_\xi &= s \\
+s_\xi &= \lambda p - c s - K_u p - K_v q \\
+q_\xi &= r \\
+r_\xi &= (\lambda q - c r - K_u p - K_v q)/\epsilon
+\end{align}
+Writing the system as $X' = AX$, where $K_u$ and $K_v$ depend on the front,
+\[
+X = \begin{bmatrix}p\\s\\q\\r\end{bmatrix},
+A = \begin{bmatrix}
+0 & 1 & 0 & 0 \\
+\lambda - K_u  &  -c  &  -K_v  & 0 \\
+0 & 0 & 0 & 1 \\
+- K_u/\epsilon &  0  &  (\lambda - K_v)/\epsilon  &  - c / \epsilon
+\end{bmatrix}
+\]
+
+
+
 \section{Eigenvalues}
-\subsection{$+\infty$}
+\subsection{$\epsilon = 0$}
+\subsubsection{$+\infty$}
 At $(u,v) = 0$, we have $K_u = K_v = 0$, so this simplifies to
 \[
 A = \begin{bmatrix}
@@ -201,7 +224,7 @@ This has eigenvalues $(-c \pm \sqrt{c^2 + 4 \lambda})/2$ and $\lambda/c$.  For $
 One eigenvector for it is
 \[v_1 = [1,(-c - \sqrt{c^2 + 4 \lambda})/2,0] \]
 
-\subsection{$-\infty$}
+\subsubsection{$-\infty$}
 At $(u,v) = (1,1)$ we get
 \[
 A = \begin{bmatrix}
@@ -218,6 +241,30 @@ Thus, the unique positive eigenvalue is
 One eigenvector (of $-A^T$) for that is
 \[
 v_2 = \left[1, -\frac{c + \sqrt{c^2 + 4 \lambda}}{2\lambda}, \frac{(c + \sqrt{c^2+4\lambda})}{\lambda e^{Z(h-1)}(c + \sqrt{c^2+4\lambda} + 2 \lambda/c)+ 2 \lambda / c}\right]
+\]
+
+\subsection{$\epsilon \neq 0$}
+\subsubsection{$+\infty$}
+At $(u,v) = 0$, we have $K_u = K_v = 0$, so this simplifies to
+\[
+A = \begin{bmatrix}
+0 & 1 & 0 & 0 \\
+\lambda &  -c  &  0  & 0 \\
+0 & 0 & 0 & 1 \\
+0 &  0  &  \lambda /\epsilon  &  - c / \epsilon
+\end{bmatrix}
+\]
+
+\subsubsection{$-\infty$}
+At $(u,v) = (1,1)$, we have $K_u = 0$ and $K_v = -e^{(1-h)Z}$.
+The matrix becomes:
+\[
+A = \begin{bmatrix}
+0 & 1 & 0 & 0 \\
+\lambda &  -c  &  e^{(1-h)Z}  & 0 \\
+0 & 0 & 0 & 1 \\
+0 &  0  &  (\lambda + e^{(1-h)Z})/\epsilon  &  - c / \epsilon
+\end{bmatrix}
 \]
 
 
