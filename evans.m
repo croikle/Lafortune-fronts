@@ -21,7 +21,7 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
   options = odeset('AbsTol',1e-9,'RelTol',1e-9);
   % any other options?
 
-  function [value,sol1,sol2] = compute(lambda,varargin)
+  function [value,sol1,sol2] = compute(lambda, debug)
     eigenvalue = -c/2 - sqrt(c^2 + 4*lambda)/2;
 
     ode1 = A_ode(c,front,lambda,h,Z,sigma,w_star);
@@ -44,8 +44,7 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     % for debugging. make sure these solutions don't go weird
     % pass an extra argument to show plots.
     % These solutions are actually complex, though.
-    debug = (nargin > 1);
-    if(debug)
+    if debug
       figure(1);
       plot(sol1.x,sol1.y);
       figure(2);
@@ -54,6 +53,11 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     value = sol1.y(:,end).' * sol2.y(:,end);
   end
 
-  result = @(x) arrayfun(@compute,x);
+  function values = do_array(lambdas, varargin)
+    debug = (nargin > 1);
+    values = arrayfun(@(x) compute(x, debug), lambdas);
+  end
+
+  result = @do_array;
 
 end
