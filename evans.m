@@ -18,10 +18,7 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
   % Left is just zero
   left = 0;
 
-  options = odeset('AbsTol',1e-9,'RelTol',1e-9);
-  % any other options?
-
-  function [value,sol1,sol2] = compute(lambda, debug)
+  function [value,sol1,sol2] = compute(lambda, options, debug)
     eigenvalue = -c/2 - sqrt(c^2 + 4*lambda)/2;
 
     ode1 = A_ode(c,front,lambda,h,Z,sigma,w_star);
@@ -54,10 +51,21 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
   end
 
   function values = do_array(lambdas, varargin)
-    debug = (nargin > 1);
-    values = arrayfun(@(x) compute(x, debug), lambdas);
+    if nargin == 1
+      abstol = 6;
+    else
+      abstol = varargin{1};
+    end
+    options = odeset('AbsTol',10^(-abstol),'RelTol',1e-3);
+
+    debug = (nargin > 2);
+    % have to specify abstol in order to do debug plots, sorry
+    values = arrayfun(@(x) compute(x, options, debug), lambdas);
   end
 
   result = @do_array;
+  % First argument is array of lambdas to evaluate at.
+  % Second (optional) is -log10(AbsTol) (i.e. 6 -> 10^-6).
+  % If third argument is included, plots are drawn.
 
 end
