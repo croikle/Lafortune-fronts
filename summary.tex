@@ -127,6 +127,21 @@ At $(1,1)$ the matrix becomes
 \end{bmatrix}
 \]
 This has one positive eigenvalue, which is quite a mess.
+We found these with computer algebra.
+\[
+    -1/2 (c e^{Z h - Z} - \sqrt{c^2 e^{2 Z h - 2 Z} + 4 \epsilon e^{Z h -
+    Z}}) e^{-Z h + Z}/\epsilon
+\]
+Its eigenvector is:
+\begin{multline*}
+    [1,\\
+        -\frac{1}{2} (c^2 \epsilon e^{3 Z h - Z} - c^2 e^{3 Z h -
+        Z} - ((\sqrt{c^2 e^{2 Z h - 2 Z} + 4 \epsilon e^{Z h - Z}} c + 2) \epsilon \\
+        - \sqrt{c^2 e^{2 Z h - 2 Z} + 4 \epsilon e^{Z h -
+        Z}} c) e^{2 Z h}) e^{-2 Z h}/\epsilon^2, \\
+        \frac{1}{2} ((2 c \epsilon - c) e^{Z h} +
+\sqrt{c^2 e^{Z h} + 4 \epsilon e^Z} e^{1/2 Z h}) e^{-Z h}/(c \epsilon)]
+\end{multline*}
 
 
 \section{Finding $c$}
@@ -254,6 +269,16 @@ A = \begin{bmatrix}
 0 &  0  &  \lambda /\epsilon  &  - c / \epsilon
 \end{bmatrix}
 \]
+The eigenvalues with negative real part are:
+\begin{align*}
+    \lambda_1 &= -\frac{1}{2} (c + \sqrt{c^2 + 4 \epsilon \lambda})/\epsilon\\
+    \lambda_2 &= -\frac{1}{2} (c + \sqrt{c^2 + 4 \lambda})
+\end{align*}
+Their respective eigenvectors are:
+\begin{align*}
+    v_1 &= [0,0,1,-\frac{1}{2} (c + \sqrt{c^2 + 4 \epsilon \lambda})/\epsilon] \\
+    v_2 &= [1, -\frac{1}{2} (c + \sqrt{c^2 + 4 \lambda}), 0, 0]
+\end{align*}
 
 \subsubsection{$-\infty$}
 At $(u,v) = (1,1)$, we have $K_u = 0$ and $K_v = -e^{(1-h)Z}$.
@@ -266,7 +291,40 @@ A = \begin{bmatrix}
 0 &  0  &  (\lambda + e^{(1-h)Z})/\epsilon  &  - c / \epsilon
 \end{bmatrix}
 \]
+Again, we look for eigenvalues and eigenvectors of $-A^T$, and choose positive real part.
+These are particularly horrific:
+\begin{align*}
+    \lambda_3 &= 1/2 (c e^{Z h - Z} + \sqrt{(c^2 + 4 \epsilon \lambda) e^{2 Z h - 2 Z} +
+4 \epsilon e^{Z h - Z}}) e^{-Z h + Z}/\epsilon \\
+    \lambda_4 &= 1/2 c + 1/2 \sqrt{c^2 + 4 \lambda}
+\end{align*}
 
+\begin{align*}
+    v_3 =& [0, 0, 1, -1/2 (c e^{2 Z h} +
+    \sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h} +
+4 \epsilon e^Z} e^{3/2 Z h})/(\lambda e^{2 Z h} + e^{Z h + Z})] \\
+v_4 =& [(1, -1/2 (c + \sqrt{c^2 + 4 \lambda})/\lambda, \\
+& 1/2 (2 (\epsilon^2 e^{Z h - Z} - \epsilon e^{Z h - Z}) \lambda^2 -
+c^2 \epsilon - (c^2 e^{Z h - Z} - (c^2 e^{Z h - Z} - 2) \epsilon) \lambda + c^2 \\
+&
+- \sqrt{c^2 + 4 \lambda} ((c \epsilon e^{Z h - Z} - c e^{Z h - Z}) \lambda + c \epsilon -
+c)) \\
+&/((\epsilon^2 e^{2 Z h - 2 Z} - 2 \epsilon e^{2 Z h - 2 Z} + e^{2 Z h -
+2 Z}) \lambda^3 - 2 (\epsilon e^{Z h - Z} - e^{Z h - Z}) \lambda^2 \\
+& - (c^2 \epsilon e^{Z h - Z} - c^2 e^{Z h - Z} - 1) \lambda), \\
+&
+1/2 (c \epsilon^2 \lambda e^{Z h + 2 Z} + (c \epsilon^2 e^{2 Z h + Z} -
+c \epsilon e^{2 Z h + Z}) \lambda^2 + (c \epsilon + \sqrt{c^2 + 4 \lambda} \epsilon) e^{3 Z} \\
+&
+- \sqrt{c^2 + 4 \lambda} ((\epsilon^2 e^{2 Z h + Z} - \epsilon e^{2 Z h + Z}) \lambda^2
++ (\epsilon^2 e^{Z h + 2 Z} - 2 \epsilon e^{Z h + 2 Z}) \lambda))\\
+&/((\epsilon^2 - 2 \epsilon +
+1) \lambda^4 e^{3 Z h} + (\epsilon^2 e^{2 Z h + Z} - 4 \epsilon e^{2 Z h + Z} +
+3 e^{2 Z h + Z}) \lambda^3 \\
+& + (c^2 e^{2 Z h + Z} - (c^2 e^{2 Z h + Z} +
+2 e^{Z h + 2 Z}) \epsilon + 3 e^{Z h + 2 Z}) \lambda^2 - (c^2 \epsilon e^{Z h + 2 Z} \\
+& - c^2 e^{Z h + 2 Z}) \lambda + \lambda e^{3 Z}))]
+\end{align*}
 
 \section{Evans function}
 We pick an appropriate distance $d$, and perform two integrations.
