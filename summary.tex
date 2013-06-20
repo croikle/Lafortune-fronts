@@ -291,42 +291,51 @@ A = \begin{bmatrix}
 0 &  0  &  (\lambda + e^{(1-h)Z})/\epsilon  &  - c / \epsilon
 \end{bmatrix}
 \]
-Again, we look for eigenvalues and eigenvectors of $-A^T$, and choose positive real part.
-These are particularly horrific:
-\begin{align*}
-    \lambda_3 &= 1/2 (c e^{Z h - Z} + \sqrt{(c^2 + 4 \epsilon \lambda) e^{2 Z h - 2 Z} +
-4 \epsilon e^{Z h - Z}}) e^{-Z h + Z}/\epsilon \\
-    \lambda_4 &= 1/2 c + 1/2 \sqrt{c^2 + 4 \lambda}
-\end{align*}
+%Again, we look for eigenvalues and eigenvectors of $-A^T$, and choose positive real part.
+We look for eigenvalues with positive real part.  In this case, we don't work with the adjoint.
+We follow the method from Lafortune, Lega, and Madrid.
 
+The first one is particularly horrific.
+It might be worth seeing if another CAS can produce a simpler version, maybe by writing it in terms of $\lambda_3$.
 \begin{align*}
-    v_3 =& [0, 0, 1, -1/2 (c e^{2 Z h} +
-    \sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h} +
-4 \epsilon e^Z} e^{3/2 Z h})/(\lambda e^{2 Z h} + e^{Z h + Z})] \\
-v_4 =& [(1, -1/2 (c + \sqrt{c^2 + 4 \lambda})/\lambda, \\
-& 1/2 (2 (\epsilon^2 e^{Z h - Z} - \epsilon e^{Z h - Z}) \lambda^2 -
-c^2 \epsilon - (c^2 e^{Z h - Z} - (c^2 e^{Z h - Z} - 2) \epsilon) \lambda + c^2 \\
-&
-- \sqrt{c^2 + 4 \lambda} ((c \epsilon e^{Z h - Z} - c e^{Z h - Z}) \lambda + c \epsilon -
-c)) \\
-&/((\epsilon^2 e^{2 Z h - 2 Z} - 2 \epsilon e^{2 Z h - 2 Z} + e^{2 Z h -
-2 Z}) \lambda^3 - 2 (\epsilon e^{Z h - Z} - e^{Z h - Z}) \lambda^2 \\
-& - (c^2 \epsilon e^{Z h - Z} - c^2 e^{Z h - Z} - 1) \lambda), \\
-&
-1/2 (c \epsilon^2 \lambda e^{Z h + 2 Z} + (c \epsilon^2 e^{2 Z h + Z} -
-c \epsilon e^{2 Z h + Z}) \lambda^2 + (c \epsilon + \sqrt{c^2 + 4 \lambda} \epsilon) e^{3 Z} \\
-&
-- \sqrt{c^2 + 4 \lambda} ((\epsilon^2 e^{2 Z h + Z} - \epsilon e^{2 Z h + Z}) \lambda^2
-+ (\epsilon^2 e^{Z h + 2 Z} - 2 \epsilon e^{Z h + 2 Z}) \lambda))\\
-&/((\epsilon^2 - 2 \epsilon +
-1) \lambda^4 e^{3 Z h} + (\epsilon^2 e^{2 Z h + Z} - 4 \epsilon e^{2 Z h + Z} +
-3 e^{2 Z h + Z}) \lambda^3 \\
-& + (c^2 e^{2 Z h + Z} - (c^2 e^{2 Z h + Z} +
-2 e^{Z h + 2 Z}) \epsilon + 3 e^{Z h + 2 Z}) \lambda^2 - (c^2 \epsilon e^{Z h + 2 Z} \\
-& - c^2 e^{Z h + 2 Z}) \lambda + \lambda e^{3 Z}))]
+    \lambda_3 &=-1/2 \left(c e^{Z h - Z} - \sqrt{(c^2 + 4 \epsilon \lambda) e^{2 Z h - 2 Z} +
+4 \epsilon e^{Z h - Z}}\right) e^{-Z h + Z}/\epsilon
+\\
+    \lambda_4 &= -1/2 c + 1/2 \sqrt{c^2 + 4 \lambda}
+\end{align*}
+\begin{align*}
+    v_3 =& [1, ((\sqrt{c^2 e^{Z h} +
+4 \epsilon \lambda e^{Z h} + 4 \epsilon e^Z} c \epsilon - \sqrt{c^2 e^{Z h} +
+4 \epsilon \lambda e^{Z h} + 4 \epsilon e^Z} c) e^{3/2 Z h} \\
+& \quad - (c^2 \epsilon - c^2 -
+2 \epsilon \lambda) e^{2 Z h} + 2 \epsilon e^{Z h + Z})/(\sqrt{c^2 e^{Z h} +
+4 \epsilon \lambda e^{Z h} + 4 \epsilon e^Z} \epsilon e^{3/2 Z h} \\
+& \quad + (2 c \epsilon^2 -
+    c \epsilon) e^{2 Z h}), \\
+    &\!-1/2 (c^2 \epsilon e^{3 Z h - Z} - c^2 e^{3 Z h - Z} -
+    ((\sqrt{c^2 e^{2 Z h - 2 Z} + 4 \epsilon \lambda e^{2 Z h - 2 Z} + 4 \epsilon e^{Z h
+    - Z}} c + 2) \epsilon \\
+    & \quad - \sqrt{c^2 e^{2 Z h - 2 Z} + 4 \epsilon \lambda e^{2 Z h -
+    2 Z} + 4 \epsilon e^{Z h - Z}} c) e^{2 Z h} + 2 (\epsilon^2 e^{3 Z h - Z} -
+    \epsilon e^{3 Z h - Z}) \lambda) e^{-2 Z h}/\epsilon^2, \\
+    & 1/2 (2 c \epsilon^2 +
+    (\sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h} + 4 \epsilon e^Z} e^{-1/2 Z h} -
+    3 c) \epsilon \\
+    & \quad - (\sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h} +
+    4 \epsilon e^Z} c^2 \epsilon e^{-Z h - Z} - \sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h}
+    + 4 \epsilon e^Z} c^2 e^{-Z h - Z} \\ 
+    & \quad + (\sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h}
+    + 4 \epsilon e^Z} \epsilon^2 e^{-Z h - Z} - \sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h}
+    + 4 \epsilon e^Z} \epsilon e^{-Z h - Z}) \lambda) e^{3/2 Z h} \\
+    & \quad + (c^3 \epsilon e^{-Z h -
+    Z} - c^3 e^{-Z h - Z} + 3 (c \epsilon^2 e^{-Z h - Z} - c \epsilon e^{-Z h -
+Z}) \lambda) e^{2 Z h})/\epsilon^3]
+\\
+v_4 =& [1, \lambda_4, 0, 0]
 \end{align*}
 
 \section{Evans function}
+\subsection{$\epsilon = 0$}
 We pick an appropriate distance $d$, and perform two integrations.
 
 These depend on a fixed front, a solution of the ODE \eqref{front_eps0}.
