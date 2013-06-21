@@ -279,6 +279,17 @@ Their respective eigenvectors are:
     v_1 &= [0,0,1,-\frac{1}{2} (c + \sqrt{c^2 + 4 \epsilon \lambda})/\epsilon] = [0,0,1,\lambda_1] \\
     v_2 &= [1, -\frac{1}{2} (c + \sqrt{c^2 + 4 \lambda}), 0, 0] = [1,\lambda_2,0,0]
 \end{align*}
+We actually need the two with positive real part as well, in order to use the Wronskian to test for mode mixing.
+\begin{align*}
+    \lambda_3 &= -\frac{1}{2} (c - \sqrt{c^2 + 4 \epsilon \lambda})/\epsilon\\
+    \lambda_4 &= -\frac{1}{2} (c - \sqrt{c^2 + 4 \lambda})
+\end{align*}
+Their associated eigenvectors are:
+\begin{align*}
+    v_3 &= [0,0,1,\lambda_3] \\
+    v_4 &= [1,\lambda_4,0,0]
+\end{align*}
+
 
 \subsubsection{$-\infty$}
 At $(u,v) = (1,1)$, we have $K_u = 0$ and $K_v = -e^{(1-h)Z}$.
@@ -295,16 +306,16 @@ A = \begin{bmatrix}
 We look for eigenvalues with positive real part.  In this case, we don't work with the adjoint.
 We follow the method from Lafortune, Lega, and Madrid.
 
-The first one is particularly horrific.
-It might be worth seeing if another CAS can produce a simpler version, maybe by writing it in terms of $\lambda_3$.
+The first eigenvector is particularly horrific.
+It might be worth seeing if another CAS can produce a simpler version, maybe by writing it in terms of the eigenvalue.
 \begin{align*}
-    \lambda_3 &=-1/2 \left(c e^{Z h - Z} - \sqrt{(c^2 + 4 \epsilon \lambda) e^{2 Z h - 2 Z} +
+    \nu_1 &=-1/2 \left(c e^{Z h - Z} - \sqrt{(c^2 + 4 \epsilon \lambda) e^{2 Z h - 2 Z} +
 4 \epsilon e^{Z h - Z}}\right) e^{-Z h + Z}/\epsilon
 \\
-    \lambda_4 &= -1/2 c + 1/2 \sqrt{c^2 + 4 \lambda}
+    \nu_2 &= -1/2 c + 1/2 \sqrt{c^2 + 4 \lambda}
 \end{align*}
 \begin{align*}
-    v_3 =& [1, ((\sqrt{c^2 e^{Z h} +
+    w_1 =& [1, ((\sqrt{c^2 e^{Z h} +
 4 \epsilon \lambda e^{Z h} + 4 \epsilon e^Z} c \epsilon - \sqrt{c^2 e^{Z h} +
 4 \epsilon \lambda e^{Z h} + 4 \epsilon e^Z} c) e^{3/2 Z h} \\
 & \quad - (c^2 \epsilon - c^2 -
@@ -331,7 +342,44 @@ It might be worth seeing if another CAS can produce a simpler version, maybe by 
     Z} - c^3 e^{-Z h - Z} + 3 (c \epsilon^2 e^{-Z h - Z} - c \epsilon e^{-Z h -
 Z}) \lambda) e^{2 Z h})/\epsilon^3]
 \\
-v_4 =& [1, \lambda_4, 0, 0]
+w_2 =& [1, \nu_2, 0, 0]
+\end{align*}
+We also need the eigenvalues with negative real part, for the Wronskian mode-mixing test.
+\begin{align*}
+    \nu_3 &=-1/2 \left(c e^{Z h - Z} + \sqrt{(c^2 + 4 \epsilon \lambda) e^{2 Z h - 2 Z} +
+4 \epsilon e^{Z h - Z}}\right) e^{-Z h + Z}/\epsilon
+\\
+    \nu_4 &= -1/2 c - 1/2 \sqrt{c^2 + 4 \lambda}
+\end{align*}
+\begin{align*}
+    w_3 =& [1, ((\sqrt{c^2 e^{Z h} +
+4 \epsilon \lambda e^{Z h} + 4 \epsilon e^Z} c \epsilon - \sqrt{c^2 e^{Z h} +
+4 \epsilon \lambda e^{Z h} + 4 \epsilon e^Z} c) e^{3/2 Z h} \\
+& \quad + (c^2 \epsilon - c^2 -
+2 \epsilon \lambda) e^{2 Z h} - 2 \epsilon e^{Z h + Z})/(\sqrt{c^2 e^{Z h} +
+4 \epsilon \lambda e^{Z h} + 4 \epsilon e^Z} \epsilon e^{3/2 Z h} \\
+& \quad - (2 c \epsilon^2 -
+    c \epsilon) e^{2 Z h}), \\
+    &\!-1/2 (c^2 \epsilon e^{3 Z h - Z} - c^2 e^{3 Z h - Z} +
+    ((\sqrt{c^2 e^{2 Z h - 2 Z} + 4 \epsilon \lambda e^{2 Z h - 2 Z} + 4 \epsilon e^{Z h
+    - Z}} c - 2) \epsilon \\
+    & \quad - \sqrt{c^2 e^{2 Z h - 2 Z} + 4 \epsilon \lambda e^{2 Z h -
+    2 Z} + 4 \epsilon e^{Z h - Z}} c) e^{2 Z h} + 2 (\epsilon^2 e^{3 Z h - Z} -
+    \epsilon e^{3 Z h - Z}) \lambda) e^{-2 Z h}/\epsilon^2, \\
+    & 1/2 (2 c \epsilon^2 -
+    (\sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h} + 4 \epsilon e^Z} e^{-1/2 Z h} +
+    3 c) \epsilon \\
+    & \quad + (\sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h} +
+    4 \epsilon e^Z} c^2 \epsilon e^{-Z h - Z} - \sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h}
+    + 4 \epsilon e^Z} c^2 e^{-Z h - Z} \\ 
+    & \quad + (\sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h}
+    + 4 \epsilon e^Z} \epsilon^2 e^{-Z h - Z} - \sqrt{c^2 e^{Z h} + 4 \epsilon \lambda e^{Z h}
+    + 4 \epsilon e^Z} \epsilon e^{-Z h - Z}) \lambda) e^{3/2 Z h} \\
+    & \quad + (c^3 \epsilon e^{-Z h -
+    Z} - c^3 e^{-Z h - Z} + 3 (c \epsilon^2 e^{-Z h - Z} - c \epsilon e^{-Z h -
+Z}) \lambda) e^{2 Z h})/\epsilon^3]
+\\
+w_4 =& [1, \nu_4, 0, 0]
 \end{align*}
 
 \section{Evans function}
