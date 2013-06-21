@@ -117,7 +117,7 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     if eps == 0
       values = arrayfun(@(x) compute_eps0(x, options, debug), lambdas);
     else
-      values = arrayfun(@(x) compute_eps0(x, options, debug), lambdas);
+      values = arrayfun(@(x) compute_eps_nonzero(x, options, debug), lambdas);
     end
   end
 
