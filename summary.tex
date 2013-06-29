@@ -384,16 +384,24 @@ w_4 =& [1, \nu_4, 0, 0]
 
 \section{Evans function}
 \subsection{$\epsilon = 0$}
-We pick an appropriate distance $d$, and perform two integrations.
-
+We perform two integrations.
 These depend on a fixed front, a solution of the ODE \eqref{front_eps0}.
-We put the middle of the front at $\xi = 0$.  As $\xi$ changes during the integration, the front gives us different values of $u,v$ in $A$.
+We pick left, middle, and right points $L, M, R$, along this front.
+The left endpoint is just the point we started shooting from (in our implementation, $\xi=0$).
+Currently, we pick the middle as the first point where the average of $u$ and $v$ is below 0.3,
+and the right is the first point where $u < 0.001$.
+These are somewhat arbitrary.
 
-We integrate $X' = AX$ from $\xi = d$ to $0$, with initial condition $e^{\lambda_1 d}v_1$.
+As $\xi$ changes during the integration, the front gives us different values of $u,v$ in $A$.
 
-We integrate $X' = -A^T X$ from $-d$ to $0$, with initial condition $e^{\lambda_1 d}v_2' = e^{-\lambda_2 d}v_2'$. The vector $v_2'$ is another eigenvector collinear with $v_2$, but normalized so that $v_1 \cdot v_2' = 1$.
+We integrate $X' = AX$ from $\xi = R$ to $M$, with initial condition $e^{\lambda_1 (R-M)}v_1$.
+
+We integrate $X' = -A^T X$ from $L$ to $M$, with initial condition $e^{\lambda_1 (M-L)}v_2' = e^{-\lambda_2 (M-L)}v_2'$. The vector $v_2'$ is another eigenvector collinear with $v_2$, but normalized so that $v_1 \cdot v_2' = 1$.
 \[v_2' = \frac{v_2}{v_2 \cdot v_1}\]
 
-The Evans function is the dot product of these results at $\xi = 0$.
+The Evans function is the dot product of these results at $\xi = M$.
+(being careful to do this the correct way: \verb|a.' * b| is what we want,
+not \verb|dot(a,b)|, which does \verb|a' * b|)
+
 
 \end{document}
