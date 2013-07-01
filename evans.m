@@ -93,16 +93,15 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
         sols(i) = ode45(ode, t_values, initial, options);
       end
 
-      wronsk_initial = det([sols(1).y(:,1), sols(2).y(:,1), sols(3).y(:,1), sols(4).y(:,1)]);
-      wronsk_final = det([sols(1).y(:,end), sols(2).y(:,end), sols(3).y(:,end), sols(4).y(:,end)]);
       traceA = -c*(1 + 1/eps); % luckily independent of \xi
-      wronsk_expected = wronsk_initial * exp(len*traceA);
-      err = abs((wronsk_final - wronsk_expected)/wronsk_expected)
 
+      [w, xs] = wronsk(sols);
+      expected = w(1) * exp((xs - xs(1)) * traceA);
+      % are there sign issues here?
+
+      err = abs((w - expected)./expected);
+      max_err = max(err)
       if debug
-          [w, xs] = wronsk(sols);
-          expected = wronsk_initial * exp((xs - xs(1)) * traceA);
-          % are there sign issues here?
           semilogy(xs, [abs(w) ; abs(expected)]);
       end
 
