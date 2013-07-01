@@ -9,7 +9,7 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
   [c, front, sol] = integrated_find_c(eps,h,Z,sigma,w_star);
 
   % Find where the front is done
-  right = sol.x(find(sol.y(1,:) < 1e-3, 1));
+  right = sol.x(find(sol.y(1,:) < 1e-2, 1));
 
   % Pick a point for the middle
   avg = 0.5 * (sol.y(1,:) + sol.y(2,:));
@@ -50,7 +50,7 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     value = sol1.y(:,end).' * sol2.y(:,end);
   end
 
-  function [value,sol1,sol2,sol3,sol4] = compute_eps_nonzero(lambda, options, debug)
+  function value = compute_eps_nonzero(lambda, options, debug)
     % negative real part eigenvalues of the limit at 0,0 (+infinity)
     lambda1 = -(c + sqrt(c^2 + 4*eps*lambda))/(2*eps);
     lambda2 = -c/2 - sqrt(c^2 + 4*lambda)/2;
@@ -86,7 +86,7 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
       % correct?
 
       for i = 1:4
-        scale = exp(len*eigenvalues(i));
+        scale = exp(-len*eigenvalues(i));
         initial = scale * eigenvectors{i};
         % any normalizing the scale of the eigenvectors?
         % last time we ensured v1 . v2 = 1
@@ -94,31 +94,31 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
       end
 
       wronsk_initial = det([sols(1).y(:,1), sols(2).y(:,1), sols(3).y(:,1), sols(4).y(:,1)]);
-      wronsk_final = det([sols(1).y(:,end), sols(2).y(:,end), sols(3).y(:,end), sols(4).y(:,end)])
+      wronsk_final = det([sols(1).y(:,end), sols(2).y(:,end), sols(3).y(:,end), sols(4).y(:,end)]);
       traceA = -c*(1 + 1/eps); % luckily independent of \xi
-      wronsk_expected = wronsk_initial * exp(len*traceA)
+      wronsk_expected = wronsk_initial * exp(len*traceA);
       err = abs((wronsk_final - wronsk_expected)/wronsk_expected)
+
+      if debug
+          [w, xs] = wronsk(sols);
+          expected = wronsk_initial * exp((xs - xs(1)) * traceA);
+          % are there sign issues here?
+          semilogy(xs, [abs(w) ; abs(expected)]);
+      end
 
       sol1 = sols(1);
       sol2 = sols(2);
     end
 
-    [sol1, sol2] = integrate_wronsk([lambda1, lambda2, lambda3, lambda4], {v1, v2, v3, v4}, t_values_right);
-    [sol3, sol4] = integrate_wronsk([nu1, nu2, nu3, nu4], {w1, w2, w3, w4}, t_values_left);
-
-    % for debugging. make sure these solutions don't go weird
-    % pass an extra argument to show plots.
-    % These solutions are actually complex, though.
     if debug
-      figure(1);
-      plot(sol1.x,sol1.y);
-      figure(2);
-      plot(sol2.x,sol2.y);
-      figure(3);
-      plot(sol3.x,sol3.y);
-      figure(4);
-      plot(sol4.x,sol4.y);
+        figure(1);
     end
+    [sol1, sol2] = integrate_wronsk([lambda1, lambda2, lambda3, lambda4], {v1, v2, v3, v4}, t_values_right);
+    if debug
+        figure(2);
+    end
+    [sol3, sol4] = integrate_wronsk([nu1, nu2, nu3, nu4], {-w1, -w2, -w3, -w4}, t_values_left);
+
     value = det([sol1.y(:,end),sol2.y(:,end),sol3.y(:,end),sol4.y(:,end)]);
   end
 
@@ -128,13 +128,14 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     else
       abstol = varargin{1};
     end
-    options = odeset('AbsTol',10^(-abstol),'RelTol',1e-3);
 
     debug = (nargin > 2);
     % have to specify abstol in order to do debug plots, sorry
     if eps == 0
+      options = odeset('AbsTol',10^(-abstol),'RelTol',1e-3);
       values = arrayfun(@(x) compute_eps0(x, options, debug), lambdas);
     else
+      options = odeset('AbsTol',10^(-abstol),'RelTol',10^(-abstol));
       values = arrayfun(@(x) compute_eps_nonzero(x, options, debug), lambdas);
     end
   end
@@ -142,6 +143,7 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
   result = @do_array;
   % First argument is array of lambdas to evaluate at.
   % Second (optional) is -log10(AbsTol) (i.e. 6 -> 10^-6).
+  %   For eps>0, it's applied to both absolute and relative
   % If third argument is included, plots are drawn.
 
 end
