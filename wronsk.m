@@ -1,8 +1,14 @@
 function [out, xs] = wronsk(sols)
-%sols is array of 4 ode solution objects
-%all over same region (unchecked)
+% sols is array of 4 ode solution objects
+% all over same x values
     start_x = sols(1).x(1);
-    end_x = sols(3).x(end);
+    end_x = sols(1).x(end);
+    ends = arrayfun(@(s) s.x(end), sols);
+    if any(ends ~= end_x)
+        error 'solutions don''t end together';
+    end
+
+    % 100 points, arbitrarily
     xs = linspace(start_x, end_x);
 
     inp = arrayfun(@(s) deval(s, xs), sols, 'UniformOutput', false);
