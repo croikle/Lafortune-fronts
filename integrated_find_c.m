@@ -16,7 +16,7 @@ function [c, front, sol] = integrated_find_c(eps,h,Z,sigma,w_star)
     if eps == 0
       v = exp((1-h)*Z)/c;
     else
-      v = -1/2*(c*exp(Z*h - Z) - sqrt(c^2*exp(2*Z*h - 2*Z) + 4*eps*exp(Z*h - Z)))*exp(-Z*h + Z)/eps
+      v = -1/2*(c*exp(Z*h - Z) - sqrt(c^2*exp(2*Z*h - 2*Z) + 4*eps*exp(Z*h - Z)))*exp(-Z*h + Z)/eps;
       % this may be possible to simplify
     end
   end
