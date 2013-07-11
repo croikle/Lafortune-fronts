@@ -9,11 +9,11 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
   [c, front, sol] = integrated_find_c(eps,h,Z,sigma,w_star);
 
   % Find where the front is done
-  right = sol.x(find(sol.y(1,:) < 1e-2, 1));
+  right = sol.x(find(sol.y(1,:) < 1e-2, 1))
 
   % Pick a point for the middle
   avg = 0.5 * (sol.y(1,:) + sol.y(2,:));
-  mid = sol.x(find(avg < 0.3, 1));
+  mid = sol.x(find(avg < 0.3, 1))
 
   % Left is just zero
   left = 0;
@@ -54,71 +54,48 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     % negative real part eigenvalues of the limit at 0,0 (+infinity)
     lambda1 = -(c + sqrt(c^2 + 4*eps*lambda))/(2*eps);
     lambda2 = -c/2 - sqrt(c^2 + 4*lambda)/2;
-    % positive real part eigenvalues of the limit at 0,0 (+infinity)
-    lambda3 = -(c - sqrt(c^2 + 4*eps*lambda))/(2*eps);
-    lambda4 = -c/2 + sqrt(c^2 + 4*lambda)/2;
 
     % positive real part eigenvalues of the limit at 1,1 (-infinity)
     nu1 = -1/2*(c*exp(Z*h - Z) - sqrt((c^2 + 4*eps*lambda)*exp(2*Z*h - 2*Z) + 4*eps*exp(Z*h - Z)))*exp(-Z*h + Z)/eps;
     nu2 = -c/2 + sqrt(c^2 + 4*lambda)/2;
-    % negative real part eigenvalues of the limit at 1,1 (-infinity)
-    nu3 = -1/2*(c*exp(Z*h - Z) + sqrt((c^2 + 4*eps*lambda)*exp(2*Z*h - 2*Z) + 4*eps*exp(Z*h - Z)))*exp(-Z*h + Z)/eps;
-    nu4 = -c/2 - sqrt(c^2 + 4*lambda)/2;
 
     v1 = [0,0,1,lambda1];
     v2 = [1,lambda2,0,0];
-    v3 = [0,0,1,lambda3];
-    v4 = [1,lambda4,0,0];
 
     w1 = [1, ((sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*c*eps - sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*c)*exp(3/2*Z*h) - (c^2*eps - c^2 - 2*eps*lambda)*exp(2*Z*h) + 2*eps*exp(Z*h + Z))/(sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*eps*exp(3/2*Z*h) + (2*c*eps^2 - c*eps)*exp(2*Z*h)), -1/2*(c^2*eps*exp(3*Z*h - Z) - c^2*exp(3*Z*h - Z) - ((sqrt(c^2*exp(2*Z*h - 2*Z) + 4*eps*lambda*exp(2*Z*h - 2*Z) + 4*eps*exp(Z*h - Z))*c + 2)*eps - sqrt(c^2*exp(2*Z*h - 2*Z) + 4*eps*lambda*exp(2*Z*h - 2*Z) + 4*eps*exp(Z*h - Z))*c)*exp(2*Z*h) + 2*(eps^2*exp(3*Z*h - Z) - eps*exp(3*Z*h - Z))*lambda)*exp(-2*Z*h)/eps^2, 1/2*(2*c*eps^2 + (sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*exp(-1/2*Z*h) - 3*c)*eps - (sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*c^2*eps*exp(-Z*h - Z) - sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*c^2*exp(-Z*h - Z) + (sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*eps^2*exp(-Z*h - Z) - sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*eps*exp(-Z*h - Z))*lambda)*exp(3/2*Z*h) + (c^3*eps*exp(-Z*h - Z) - c^3*exp(-Z*h - Z) + 3*(c*eps^2*exp(-Z*h - Z) - c*eps*exp(-Z*h - Z))*lambda)*exp(2*Z*h))/eps^3];
 % yes, it's ridiculous. This is what I got out of Sage; it may be simplifiable.
     w2 = [1,nu2,0,0];
-    w3 = [1, ((sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*c*eps - sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*c)*exp(3/2*Z*h) + (c^2*eps - c^2 - 2*eps*lambda)*exp(2*Z*h) - 2*eps*exp(Z*h + Z))/(sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*eps*exp(3/2*Z*h) - (2*c*eps^2 - c*eps)*exp(2*Z*h)), -1/2*(c^2*eps*exp(3*Z*h - Z) - c^2*exp(3*Z*h - Z) + ((sqrt(c^2*exp(2*Z*h - 2*Z) + 4*eps*lambda*exp(2*Z*h - 2*Z) + 4*eps*exp(Z*h - Z))*c - 2)*eps - sqrt(c^2*exp(2*Z*h - 2*Z) + 4*eps*lambda*exp(2*Z*h - 2*Z) + 4*eps*exp(Z*h - Z))*c)*exp(2*Z*h) + 2*(eps^2*exp(3*Z*h - Z) - eps*exp(3*Z*h - Z))*lambda)*exp(-2*Z*h)/eps^2, 1/2*(2*c*eps^2 - (sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*exp(-1/2*Z*h) + 3*c)*eps + (sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*c^2*eps*exp(-Z*h - Z) - sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*c^2*exp(-Z*h - Z) + (sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*eps^2*exp(-Z*h - Z) - sqrt(c^2*exp(Z*h) + 4*eps*lambda*exp(Z*h) + 4*eps*exp(Z))*eps*exp(-Z*h - Z))*lambda)*exp(3/2*Z*h) + (c^3*eps*exp(-Z*h - Z) - c^3*exp(-Z*h - Z) + 3*(c*eps^2*exp(-Z*h - Z) - c*eps*exp(-Z*h - Z))*lambda)*exp(2*Z*h))/eps^3];
-    w4 = [1,nu4,0,0];
 
-    ode = A_ode(eps,c,front,lambda,h,Z,sigma,w_star);
+    sigma_plus = lambda1 + lambda2;
+    sigma_minus = nu1 + nu2;
+
+    zeta_minus_prenormalized = wedge(v1, v2)
+    zeta_plus = wedge(w1, w2)
+    %hodge = [0 0 0 0 0 1; 0 0 0 0 -1 0; 0 0 0 1 0 0; 0 0 1 0 0 0; 0 -1 0 0 0 0; 1 0 0 0 0 0 0];
+    hodge = fliplr(diag([1, -1, 1, 1, -1, 1]));
+
+    n = dot(zeta_minus_prenormalized, hodge * zeta_plus.');
+    zeta_minus = zeta_minus_prenormalized / n;
+
     t_values_right = [right, mid];
     t_values_left = [left, mid];
 
-    function [sol1,sol2] = integrate_wronsk(eigenvalues, eigenvectors, t_values)
+    function out = integrate(eigenvalue, eigenvector, t_values)
       len = t_values(2) - t_values(1);
-      % not taking the absolute value, since we're not doing the adjoint.
-      % correct?
 
-      for i = 1:4
-        scale = exp(-len*eigenvalues(i));
-        initial = scale * eigenvectors{i};
-        % any normalizing the scale of the eigenvectors?
-        % last time we ensured v1 . v2 = 1
-        sols(i) = ode45(ode, t_values, initial, options);
-      end
-
-      traceA = -c*(1 + 1/eps); % luckily independent of \xi
-
-      [w, xs] = wronsk(sols);
-      expected = w(1) * exp((xs - xs(1)) * traceA);
-      % are there sign issues here?
-
-      err = abs((w - expected)./expected);
-      max_err = max(err)
-      if debug
-          semilogy(xs, [abs(w) ; abs(expected)]);
-      end
-
-      sol1 = sols(1);
-      sol2 = sols(2);
+      ode = A6_ode(eps,c,front,eigenvalue,lambda,h,Z,sigma,w_star);
+      initial = eigenvector;
+      sol = ode45(ode, t_values, initial, options);
+      out = sol.y(:,end);
     end
 
-    if debug
-        figure(1);
-    end
-    [sol1, sol2] = integrate_wronsk([lambda1, lambda2, lambda3, lambda4], {v1, v2, v3, v4}, t_values_right);
-    if debug
-        figure(2);
-    end
-    [sol3, sol4] = integrate_wronsk([nu1, nu2, nu3, nu4], {-w1, -w2, -w3, -w4}, t_values_left);
+    traceA = -c*(1 + 1/eps); % happens to be independent of \xi
+    N = exp(-mid * traceA);
 
-    value = det([sol1.y(:,end),sol2.y(:,end),sol3.y(:,end),sol4.y(:,end)]);
+    left_result = integrate(sigma_minus, zeta_minus, t_values_left)
+    right_result = integrate(sigma_plus, zeta_plus, t_values_right)
+
+    value = N * dot(left_result, hodge * right_result);
   end
 
   function values = do_array(lambdas, varargin)
