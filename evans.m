@@ -75,7 +75,10 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     hodge = fliplr(diag([1, -1, 1, 1, -1, 1]));
 
     n = dot(zeta_minus_prenormalized, hodge * zeta_plus.');
-    zeta_minus = zeta_minus_prenormalized / n;
+    zeta_minus = zeta_minus_prenormalized / conj(n);
+    % first term in dot is conjugated, so we need to conjugate n.
+    % for testing:
+    % one = dot(zeta_minus, hodge * zeta_plus.')
 
     t_values_right = [right, mid];
     t_values_left = [left, mid];
