@@ -69,8 +69,8 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     sigma_plus = lambda1 + lambda2;
     sigma_minus = nu1 + nu2;
 
-    zeta_minus_prenormalized = wedge(v1, v2)
-    zeta_plus = wedge(w1, w2)
+    zeta_minus_prenormalized = wedge(v1, v2);
+    zeta_plus = wedge(w1, w2);
     %hodge = [0 0 0 0 0 1; 0 0 0 0 -1 0; 0 0 0 1 0 0; 0 0 1 0 0 0; 0 -1 0 0 0 0; 1 0 0 0 0 0 0];
     hodge = fliplr(diag([1, -1, 1, 1, -1, 1]));
 
@@ -84,8 +84,6 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     t_values_left = [left, mid];
 
     function out = integrate(eigenvalue, eigenvector, t_values)
-      len = t_values(2) - t_values(1);
-
       ode = A6_ode(eps,c,front,eigenvalue,lambda,h,Z,sigma,w_star);
       initial = eigenvector;
       sol = ode45(ode, t_values, initial, options);
