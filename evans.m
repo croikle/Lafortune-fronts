@@ -93,8 +93,14 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     traceA = -c*(1 + 1/eps); % happens to be independent of \xi
     N = exp(-mid * traceA);
 
-    left_result = integrate(sigma_minus, zeta_minus, t_values_left)
-    right_result = integrate(sigma_plus, zeta_plus, t_values_right)
+    if debug
+        figure(1);
+    end
+    left_result = integrate(sigma_minus, zeta_minus, t_values_left) * exp(sigma_minus * mid);
+    if debug
+        figure(2);
+    end
+    right_result = integrate(sigma_plus, zeta_plus, t_values_right) * exp(sigma_plus * mid);
 
     value = N * dot(left_result, hodge * right_result);
   end
