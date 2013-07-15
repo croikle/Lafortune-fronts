@@ -102,7 +102,7 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
     end
     right_result = integrate(sigma_plus, zeta_plus, t_values_right) * exp(sigma_plus * mid);
 
-    value = N * dot(left_result, hodge * right_result);
+    value = N * left_result.' * hodge * right_result;
   end
 
   function values = do_array(lambdas, varargin)
