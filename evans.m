@@ -88,6 +88,9 @@ function [result, sol] = evans(eps,h,Z,sigma,w_star)
       initial = eigenvector;
       sol = ode45(ode, t_values, initial, options);
       out = sol.y(:,end);
+      if debug
+          plot(sol.x,sol.y);
+      end
     end
 
     traceA = -c*(1 + 1/eps); % happens to be independent of \xi
